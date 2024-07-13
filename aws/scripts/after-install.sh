@@ -3,8 +3,10 @@ set -xe
 
 
 # Copy war file from S3 bucket to tomcat webapp folder
-aws s3 cp s3://##s3-bucket##/SpringBootHelloWorldExampleApplication.war /usr/local/tomcat9/webapps/SpringBootHelloWorldExampleApplication.war
+aws s3 cp -r s3://##s3-bucket##/dist /usr/local/app/dist
+aws s3 cp -r s3://##s3-bucket##/tsconfig.json /usr/local/app/tsconfig.json
+aws s3 cp -r s3://##s3-bucket##/package.json /usr/local/app/package.json
 
+cd /usr/local/app/
 
-# Ensure the ownership permissions are correct.
-chown -R tomcat:tomcat /usr/local/tomcat9/webapps
+sudo yarn
