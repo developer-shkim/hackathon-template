@@ -53,8 +53,8 @@ Parameters:
     Default: 10.192.21.0/24
 
   ImageId:
-    Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
-    Default: '/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2'
+    Type: String
+    Default: ami-0669eac37c0fb2616
     Description: The Amazon EC2 Linux instance Amazon Machine Image (AMI), which designates the configuration of the new instance.
   InstanceType:
     Type: String
@@ -244,6 +244,11 @@ Resources:
                 Action: 
                 - "s3:getObject"
                 Resource: !Sub arn:${AWS::Partition}:s3:::${WebappDeploymentBucket}/*
+              -
+                Effect: "Allow"
+                Action: 
+                - "s3:ListBucket"
+                Resource: !Sub arn:${AWS::Partition}:s3:::${WebappDeploymentBucket}
   IDCProvider:
       Type: AWS::IAM::OIDCProvider
       Properties:
@@ -399,23 +404,24 @@ Resources:
           !Sub |
               #!/bin/bash
 
-              yum install -y gcc-c++ make wget
-              curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-              yum install nodejs
+              curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+              source ~/.bashrc
+              nvm install v20.15.1
+              nvm use v20.15.1
               
               node -v
               npm -v
               curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
               echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-              sudo yum update && sudo yum install yarn
+              sudo apt update && sudo apt install yarn
               yarn --version
               
-              yum install ruby -y
+              apt install ruby -y
               wget https://aws-codedeploy-${AWS::Region}.s3.${AWS::Region}.amazonaws.com/latest/install
               chmod +x ./install
               ./install auto
               cd /tmp
-              yum install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
+              apt install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
               systemctl enable amazon-ssm-agent
               systemctl start amazon-ssm-agent
 
