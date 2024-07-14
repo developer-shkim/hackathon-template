@@ -21,9 +21,9 @@ unzip awscliv2.zip
 sudo ./aws/install
 
 # Copy war file from S3 bucket to tomcat webapp folder
-aws s3 cp s3://codedeploystack-webappdeploymentbucket-rlpt97jfviqg/dist /usr/local/app/dist --recursive
-aws s3 cp s3://codedeploystack-webappdeploymentbucket-rlpt97jfviqg/tsconfig.json /usr/local/app/tsconfig.json
-aws s3 cp s3://codedeploystack-webappdeploymentbucket-rlpt97jfviqg/package.json /usr/local/app/package.json
+aws s3 cp s3://codedeploystack-webappdeploymentbucket-jk05pgxqcofh/dist /usr/local/app/dist --recursive
+aws s3 cp s3://codedeploystack-webappdeploymentbucket-jk05pgxqcofh/tsconfig.json /usr/local/app/tsconfig.json
+aws s3 cp s3://codedeploystack-webappdeploymentbucket-jk05pgxqcofh/package.json /usr/local/app/package.json
 
 cd /usr/local/app/
 
