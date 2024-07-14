@@ -6,8 +6,8 @@ on:
 
 env:
   applicationfolder: backend
-  AWS_REGION: ##region##
-  S3BUCKET: ##s3-bucket##
+  AWS_REGION: ap-northeast-2
+  S3BUCKET: codedeploystack-webappdeploymentbucket-rlpt97jfviqg
 
 jobs:
   build:

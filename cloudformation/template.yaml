@@ -403,18 +403,6 @@ Resources:
         "Fn::Base64":
           !Sub |
               #!/bin/bash
-
-              curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-              source ~/.bashrc
-              nvm install v20.15.1
-              nvm use v20.15.1
-              
-              node -v
-              npm -v
-              curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-              echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-              sudo apt update && sudo apt install yarn
-              yarn --version
               
               apt install ruby -y
               wget https://aws-codedeploy-${AWS::Region}.s3.${AWS::Region}.amazonaws.com/latest/install
